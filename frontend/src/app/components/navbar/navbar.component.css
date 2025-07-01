@@ -1,0 +1,110 @@
+/* Empêche le scroll horizontal global */
+html, body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Base navbar styling */
+.navbar {
+  background-color: #1a237e;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease;
+  width: 100%;
+  margin: 0;
+  border-radius: 0;
+  padding: 0.5rem 2rem;
+  height: auto;
+  z-index: 1000;
+  position: relative;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+/* Nav container */
+.navbar-collapse,
+.navbar-nav {
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* All nav links aligned to the right on large screens */
+.navbar-nav {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+/* Nav item */
+.nav-item {
+  display: inline-block;
+}
+
+/* Nav links */
+.nav-link {
+  color: rgba(255, 255, 255, 0.9) !important;
+  font-weight: 500;
+  padding: 0.45rem 0.9rem !important;
+  border-radius: 8px;
+  transition: background-color 0.2s, color 0.2s;
+  white-space: nowrap;
+  box-sizing: border-box;
+}
+
+.nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: white !important;
+}
+
+.nav-link.active {
+  background-color: rgba(255, 255, 255, 0.18);
+  font-weight: 600;
+  color: white !important;
+}
+
+.nav-link i {
+  margin-right: 0.4rem;
+  font-size: 0.95rem;
+}
+
+/* Admin link */
+.admin-link {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.4rem 0.9rem !important;
+  border-radius: 12px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.admin-link:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.admin-link.active {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Navbar toggler  */
+.navbar-toggler {
+  border: none;
+  outline: none;
+  padding: 0.3rem 0.6rem;
+  background: transparent;
+}
+
+.navbar-toggler-icon {
+  width: 24px;
+  height: 24px;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(255,255,255,0.9)' stroke-linecap='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  display: none;
+}
+

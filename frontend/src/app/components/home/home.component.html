@@ -1,0 +1,29 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container d-flex align-items-center min-vh-75">
+    <div class="hero-content col-lg-6">
+      <h1 class="display-3 fw-bold text-primary mb-4">Partagez votre expérience de vol</h1>
+      <p class="lead mb-4">
+        Aidez les autres voyageurs en partageant vos avis sur les compagnies aériennes. Votre retour d'expérience compte !
+      </p>
+      <div class="hero-buttons d-flex flex-wrap gap-3">
+        <button class="btn btn-primary btn-lg" (click)="goToReviewForm()">
+          <i class="fas fa-edit"></i> Laisser un avis
+        </button>
+        <button class="btn btn-outline-primary btn-lg" (click)="goToPublicReviews()">
+          <i class="fas fa-comments"></i> Voir les avis
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lien administrateur -->
+<section class="admin-section py-3 bg-light border-top text-center">
+  <div class="container">
+    <small class="text-muted">
+      Administrateur ?
+      <a routerLink="/admin" class="text-decoration-none">Accéder au back-office</a>
+    </small>
+  </div>
+</section>
