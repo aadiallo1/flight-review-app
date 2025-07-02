@@ -20,8 +20,11 @@ L'application suit une architecture moderne avec séparation frontend/backend :
 │  ┌─────────────────────────────────┐ │
 │  │        Components               │ │
 │  ├─────────────────────────────────┤ │
-│  │        Services                 │ │
+│  │         Models                  │ │
 │  ├─────────────────────────────────┤ │
+│  │        Services                 │ │
+│  └─────────────────────────────────┘ │
+│  ├                                 ┤ │
 │  │        HTTP Client              │ │
 │  └─────────────────────────────────┘ │
 └─────────────────────────────────────┘
@@ -635,3 +638,21 @@ Dans le cadre de ce test technique, j'ai utilisé l'IA comme outil d'assistance 
 - **Compréhension technique** : Analyse de chaque suggestion avant implémentation
 - **Adaptation** : Modification du code généré selon mes besoins spécifiques
 - **Documentation** : Présente section pour expliquer l'usage de l'IA
+
+## Organisation du Travail
+
+**Durée totale** : ~17h30 réparties sur 5 sessions de travail
+
+| Jour | Durée | Focus principal                                    |
+|------|-|----------------------------------------------------|
+| **Samedi soir** | 2h00 | Architecture et initialisation du projet           |
+| **Dimanche** | 8h00 | Développement backend + frontend                   |
+| **Lundi soir** | 3h00 | Finalisation des fonctionnalités avancées          |
+| **Mardi soir** | 3h00 | Interface admin + optimisations + tests & documentation |
+| **Mercredi matin** | 1h30 | Tests finaux + finalisation de la documentation    |
+
+
+### Outils de productivité utilisés
+
+- **IDE** : IntelliJ IDEA (Backend & Frontend)
+- **Assistance IA** : TALIA (CSS/design) + GitHub Copilot (Java/TypeScript)

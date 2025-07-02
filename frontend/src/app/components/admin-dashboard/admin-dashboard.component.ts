@@ -46,17 +46,29 @@ export class AdminDashboardComponent implements OnInit {
   successMessage = '';
   errorMessage = '';
 
+  //Date
+  maxDate: string;
+
   constructor(
     private fb: FormBuilder,
     private flightReviewService: FlightReviewService
   ) {
     this.searchForm = this.createSearchForm();
     this.responseForm = this.createResponseForm();
+    this.maxDate = this.getTodayDate();
   }
 
   ngOnInit(): void {
     this.airlineOptions = this.flightReviewService.getAirlineOptions();
     this.searchReviews();
+  }
+
+  private getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   private createSearchForm(): FormGroup {

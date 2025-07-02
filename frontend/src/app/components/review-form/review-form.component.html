@@ -109,7 +109,8 @@
                           class="form-control"
                           id="flightDate"
                           formControlName="flightDate"
-                          [class.is-invalid]="hasFieldError('flightDate')">
+                          [class.is-invalid]="hasFieldError('flightDate')"
+                          [attr.max]="maxDate">
                         <div *ngIf="hasFieldError('flightDate')" class="invalid-feedback">
                           {{ getFieldError('flightDate') }}
                         </div>

@@ -19,12 +19,14 @@ export class ReviewFormComponent implements OnInit {
   submitSuccess = false;
   submitError = '';
   selectedRating = 0;
+  maxDate: string;
 
   constructor(
     private fb: FormBuilder,
     private flightReviewService: FlightReviewService
   ) {
     this.reviewForm = this.createForm();
+    this.maxDate = this.getTodayDate();
   }
 
   ngOnInit(): void {
@@ -39,6 +41,14 @@ export class ReviewFormComponent implements OnInit {
       rating: [0, [Validators.required, Validators.min(1), Validators.max(5)]],
       comment: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]]
     });
+  }
+
+  private getTodayDate(): string {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = (today.getMonth() + 1).toString().padStart(2, '0');
+    const day = today.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}`;
   }
 
   /**
