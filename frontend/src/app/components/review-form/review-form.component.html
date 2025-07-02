@@ -1,0 +1,233 @@
+<!-- components/review-form/review-form.component.html -->
+<div class="form-page-wrapper">
+  <div class="container-fluid">
+    <div class="row min-vh-100 align-items-center justify-content-center py-5">
+      <div class="col-12 col-lg-8 col-xl-6">
+
+        <!-- Cadre principal du formulaire -->
+        <div class="form-container">
+
+          <!-- En-tête du formulaire -->
+          <div class="form-header text-center mb-4">
+            <div class="header-icon mb-3">
+              <i class="fas fa-plane"></i>
+            </div>
+            <h1 class="form-title">Évaluation de Vol</h1>
+            <p class="form-subtitle">Partagez votre expérience pour aider d'autres voyageurs</p>
+          </div>
+
+          <!-- Messages de retour -->
+          <div class="alerts-section mb-4">
+            <!-- Message de succès -->
+            <div *ngIf="submitSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
+              <div class="alert-content">
+                <i class="fas fa-check-circle me-2"></i>
+                <span>Merci ! Votre avis a été soumis avec succès. Il sera examiné par notre équipe avant publication.</span>
+              </div>
+              <button type="button" class="btn-close" (click)="submitSuccess = false"></button>
+            </div>
+
+            <!-- Message d'erreur -->
+            <div *ngIf="submitError" class="alert alert-danger alert-dismissible fade show" role="alert">
+              <div class="alert-content">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <span>{{ submitError }}</span>
+              </div>
+              <button type="button" class="btn-close" (click)="submitError = ''"></button>
+            </div>
+          </div>
+
+          <!-- Formulaire principal -->
+          <div class="main-form-card">
+            <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+
+              <!-- Section : Informations du vol -->
+              <div class="form-section">
+                <div class="section-header">
+                  <div class="section-icon">
+                    <i class="fas fa-info-circle"></i>
+                  </div>
+                  <div class="section-title">
+                    <h3>Informations du vol</h3>
+                    <p>Renseignez les détails de votre voyage</p>
+                  </div>
+                </div>
+                <div class="section-body">
+                  <div class="row g-3">
+                    <div class="col-md-6">
+                      <div class="input-group-custom">
+                        <label for="flightNumber" class="form-label">
+                          <i class="fas fa-hashtag"></i>
+                          Numéro de vol
+                          <span class="required">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="flightNumber"
+                          formControlName="flightNumber"
+                          placeholder="Ex: AF1234"
+                          [class.is-invalid]="hasFieldError('flightNumber')">
+                        <div *ngIf="hasFieldError('flightNumber')" class="invalid-feedback">
+                          {{ getFieldError('flightNumber') }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="input-group-custom">
+                        <label for="airline" class="form-label">
+                          <i class="fas fa-building"></i>
+                          Compagnie aérienne
+                          <span class="required">*</span>
+                        </label>
+                        <select
+                          class="form-select"
+                          id="airline"
+                          formControlName="airline"
+                          [class.is-invalid]="hasFieldError('airline')">
+                          <option value="">Sélectionnez une compagnie</option>
+                          <option *ngFor="let airline of airlineOptions" [value]="airline">
+                            {{ airline }}
+                          </option>
+                        </select>
+                        <div *ngIf="hasFieldError('airline')" class="invalid-feedback">
+                          {{ getFieldError('airline') }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="input-group-custom">
+                        <label for="flightDate" class="form-label">
+                          <i class="fas fa-calendar"></i>
+                          Date de vol
+                          <span class="required">*</span>
+                        </label>
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="flightDate"
+                          formControlName="flightDate"
+                          [class.is-invalid]="hasFieldError('flightDate')"
+                          [attr.max]="maxDate">
+                        <div *ngIf="hasFieldError('flightDate')" class="invalid-feedback">
+                          {{ getFieldError('flightDate') }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section : Évaluation -->
+              <div class="form-section">
+                <div class="section-header">
+                  <div class="section-icon">
+                    <i class="fas fa-star"></i>
+                  </div>
+                  <div class="section-title">
+                    <h3>Votre évaluation</h3>
+                    <p>Notez votre expérience globale</p>
+                  </div>
+                </div>
+                <div class="section-body">
+                  <div class="rating-container">
+                    <label class="form-label text-center">
+                      Note globale
+                      <span class="required">*</span>
+                    </label>
+                    <div class="star-rating">
+                      <span
+                        *ngFor="let star of getStars()"
+                        class="star"
+                        [class.selected]="isStarSelected(star)"
+                        (click)="setRating(star)"
+                        (mouseenter)="selectedRating = star"
+                        (mouseleave)="selectedRating = reviewForm.get('rating')?.value || 0">
+                        <i class="fas fa-star"></i>
+                      </span>
+                    </div>
+                    <p class="rating-help">Cliquez sur les étoiles (1 = très mauvais, 5 = excellent)</p>
+                    <div *ngIf="hasFieldError('rating')" class="rating-error">
+                      {{ getFieldError('rating') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section : Commentaire -->
+              <div class="form-section">
+                <div class="section-header">
+                  <div class="section-icon">
+                    <i class="fas fa-comment"></i>
+                  </div>
+                  <div class="section-title">
+                    <h3>Votre commentaire</h3>
+                    <p>Partagez les détails de votre expérience</p>
+                  </div>
+                </div>
+                <div class="section-body">
+                  <div class="input-group-custom">
+                    <label for="comment" class="form-label">
+                      <i class="fas fa-edit"></i>
+                      Commentaire détaillé
+                      <span class="required">*</span>
+                    </label>
+                    <textarea
+                      class="form-control"
+                      id="comment"
+                      formControlName="comment"
+                      rows="5"
+                      placeholder="Décrivez votre expérience : service, ponctualité, confort, repas, personnel, etc."
+                      [class.is-invalid]="hasFieldError('comment')"></textarea>
+                    <div class="form-text-custom">
+                      <small class="text-muted">
+                        <i class="fas fa-lightbulb me-1"></i>
+                        Soyez précis pour aider d'autres voyageurs
+                      </small>
+                      <span
+                        class="character-counter"
+                        [class.text-danger]="reviewForm.get('comment')?.value?.length > 1000"
+                        [class.text-warning]="reviewForm.get('comment')?.value?.length > 800">
+                        {{ reviewForm.get('comment')?.value?.length || 0 }}/1000
+                      </span>
+                    </div>
+                    <div *ngIf="hasFieldError('comment')" class="invalid-feedback">
+                      {{ getFieldError('comment') }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Actions du formulaire -->
+              <div class="form-actions">
+                <div class="actions-container">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    (click)="resetForm()"
+                    [disabled]="isSubmitting">
+                    <i class="fas fa-undo me-2"></i>
+                    Réinitialiser
+                  </button>
+
+                  <button
+                    type="submit"
+                    class="btn btn-primary"
+                    [disabled]="isSubmitting || !reviewForm.valid">
+                    <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2"></span>
+                    <i *ngIf="!isSubmitting" class="fas fa-paper-plane me-2"></i>
+                    {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre mon avis' }}
+                  </button>
+                </div>
+              </div>
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
